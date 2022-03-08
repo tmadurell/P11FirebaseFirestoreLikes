@@ -1,11 +1,29 @@
 package com.main.p11firebasefirestorelikes;
 
-import androidx.annotation.*;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.*;
-
+import android.content.*;
+import android.graphics.*;
 import android.os.Bundle;
+
+
+import androidx.annotation.*;
+import androidx.core.content.*;
+import androidx.fragment.app.*;
+import androidx.lifecycle.*;
+import androidx.navigation.*;
+import androidx.recyclerview.widget.*;
+
+import android.text.TextUtils;
 import android.view.*;
+import android.widget.*;
+
+import com.bumptech.glide.*;
+import com.firebase.ui.firestore.*;
+import com.google.firebase.auth.*;
+import com.google.firebase.firestore.*;
+
+import java.io.*;
+import java.text.*;
+import java.util.*;
 
 
 public class HomeFragment extends Fragment {
@@ -31,5 +49,58 @@ public class HomeFragment extends Fragment {
                 navController.navigate(R.id.newPostFragment);
             }
         });
+
+        //Establecer el Adaptador en el RecyclerView
+        RecyclerView postsRecyclerView = view.findViewById(R.id.postsRecyclerView);
+
+        Query query = FirebaseFirestore.getInstance().collection("posts").limit(50);
+
+        FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>()
+                .setQuery(query, Post.class)
+                .setLifecycleOwner(this)
+                .build();
+
+        postsRecyclerView.setAdapter(new PostsAdapter(options));
     }
+
+    // class PostsAdapter extends FirestoreRecyclerAdapter ...
+
+
+
+
+    //Clase PostsAdapter
+
+    class PostsAdapter extends FirestoreRecyclerAdapter<Post, PostsAdapter.PostViewHolder> {
+        public PostsAdapter(@NonNull FirestoreRecyclerOptions<Post> options) {super(options);}
+
+        @NonNull
+        @Override
+        public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new PostViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_post, parent, false));
+        }
+
+        @Override
+        protected void onBindViewHolder(@NonNull PostViewHolder holder, int position, @NonNull final Post post) {
+            Glide.with(getContext()).load(post.authorPhotoUrl).circleCrop().into(holder.authorPhotoImageView);
+            holder.authorTextView.setText(post.author);
+            holder.contentTextView.setText(post.content);
+        }
+
+        class PostViewHolder extends RecyclerView.ViewHolder {
+            ImageView authorPhotoImageView;
+            TextView authorTextView, contentTextView;
+
+            PostViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                authorPhotoImageView = itemView.findViewById(R.id.photoImageView);
+                authorTextView = itemView.findViewById(R.id.authorTextView);
+                contentTextView = itemView.findViewById(R.id.contentTextView);
+            }
+        }
+    }
+
+
+
+
 }
