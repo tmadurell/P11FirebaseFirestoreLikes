@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "820826082559",
+    "project_id": "p11firebasefirestorelikes",
+    "storage_bucket": "p11firebasefirestorelikes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:820826082559:android:72bdf55d728a5d030710ca",
+        "android_client_info": {
+          "package_name": "com.main.p11firebasefirestorelikes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "820826082559-kq0v9mcolrfruupaefbjko7eqro4civ4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmtDfHM0Q8sbbjvZGvDL7ZwY6cz1QxuMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "820826082559-kq0v9mcolrfruupaefbjko7eqro4civ4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
