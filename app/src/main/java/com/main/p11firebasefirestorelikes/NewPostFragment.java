@@ -4,22 +4,26 @@ import android.os.Bundle;
 
 import androidx.annotation.*;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 
 
 import android.text.*;
 import android.view.*;
 import android.widget.*;
 
+import com.google.android.gms.tasks.*;
 import com.google.firebase.auth.*;
 import com.google.firebase.firestore.*;
 
 
 public class NewPostFragment extends Fragment {
 
+    NavController navController;
+
     Button publishButton;
     EditText postConentEditText;
 
-    // ...
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
