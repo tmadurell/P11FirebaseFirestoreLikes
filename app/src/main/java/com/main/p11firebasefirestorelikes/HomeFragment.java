@@ -42,8 +42,8 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        navController = Navigation.findNavController(view);
 
+        navController = Navigation.findNavController(view);
         view.findViewById(R.id.gotoNewPostFragmentButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
         //Establecer el Adaptador en el RecyclerView
         RecyclerView postsRecyclerView = view.findViewById(R.id.postsRecyclerView);
 
-        Query query = FirebaseFirestore.getInstance().collection("posts").limit(50);
+
 
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>()
                 .setQuery(query, Post.class)
@@ -66,6 +66,8 @@ public class HomeFragment extends Fragment {
 
     // class PostsAdapter extends FirestoreRecyclerAdapter ...
 
+
+    Query query = FirebaseFirestore.getInstance().collection("posts").limit(50);
 
     //Clase PostsAdapter
 

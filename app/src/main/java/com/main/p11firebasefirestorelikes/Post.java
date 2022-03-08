@@ -1,7 +1,7 @@
 package com.main.p11firebasefirestorelikes;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
 
 public class Post {
     public String uid;
