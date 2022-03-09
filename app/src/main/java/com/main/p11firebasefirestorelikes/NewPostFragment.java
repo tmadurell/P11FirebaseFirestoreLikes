@@ -44,7 +44,9 @@ public class NewPostFragment extends Fragment {
 
     Button publishButton;
     EditText postConentEditText;
-
+    //EXTRA ARREGLO PULIDO
+    public String mediaTipo;
+    //----ARREGLO EXTRA------
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,7 +72,7 @@ public class NewPostFragment extends Fragment {
                 publicar();
             }
         });
-    }
+}
 
     private void publicar() {
         String postContent = postConentEditText.getText().toString();
@@ -78,18 +80,22 @@ public class NewPostFragment extends Fragment {
             postConentEditText.setError("Required");
             return;
         }
-
+        //----ARREGLO EXTRA------
         publishButton.setEnabled(false);
-
-        guardarEnFirestore(postContent);
+        if (mediaTipo == null) {
+            guardarEnFirestore(postContent, null);
+        }
+        //----ARREGLO EXTRA------
     }
 
 
-    private void guardarEnFirestore(String postContent) {
+    private void guardarEnFirestore(String postContent, String mediaUrl) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        Post post = new Post(user.getUid(), user.getDisplayName(), user.getPhotoUrl().toString(), postContent);
-
+        //----ARREGLO EXTRA------
+        Post post = new Post(user.getUid(), user.getDisplayName(),
+                (user.getPhotoUrl() != null ? user.getPhotoUrl().toString() :
+                        "R.drawable.user"), postContent);
+        //----ARREGLO EXTRA------
         FirebaseFirestore.getInstance().collection("posts")
                 .add(post)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -99,5 +105,6 @@ public class NewPostFragment extends Fragment {
                     }
                 });
     }
+
 
 }
